@@ -44,5 +44,10 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <input type="text" name="txtCrono" value="" [(ngModel)]="txtCrono">
+  <button ion-button color="info" (click)="empezarDetener()">
+    {{ValorCrono}}
+  </button>
  
 </ion-content>
