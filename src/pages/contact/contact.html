@@ -7,11 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+  {{n}}
+
+  <button (click)="iniciar()">iniciar</button>
+  <button (click)="pausar()">pausar</button>
+  <button (click)="resetear()">resetear</button>
 </ion-content>

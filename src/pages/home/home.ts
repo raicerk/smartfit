@@ -15,12 +15,88 @@ export class HomePage {
   isEditing: boolean = false;
   ValorCrono: string = "Empezar";
   txtCrono: any;
+  ordenEjercicio: number;
+  maquina: number;
+  tipo: string;
+  asiento: number;
+  apoyo: number;
+  serie: number;
+  repeticion: number;
+  carga: number;
 
-  inicio: any =0;
-  timeout: any = 0;
-  vuelta : any;
-  actual: any;
-  diff: any;
+  onChange(numeroEjercicio) {
+    this.maquina = this.ejercicios[numeroEjercicio - 1].maquina;
+    this.tipo = this.ejercicios[numeroEjercicio - 1].tipo;
+    this.asiento = this.ejercicios[numeroEjercicio - 1].asiento;
+    this.apoyo = this.ejercicios[numeroEjercicio - 1].apoyo;
+    this.serie = this.ejercicios[numeroEjercicio - 1].serie;
+    this.repeticion = this.ejercicios[numeroEjercicio - 1].repeticion;
+    this.carga = this.ejercicios[numeroEjercicio - 1].carga;
+  }
+
+  ejercicios: any = [
+    {
+      orden: 1,
+      tipo: "tronco",
+      maquina: 25,
+      asiento: 5,
+      apoyo: null,
+      serie: 3,
+      repeticion: 12,
+      carga: 15
+    },
+    {
+      orden: 2,
+      tipo: "tronco",
+      maquina: 30,
+      asiento: 5,
+      apoyo: 5,
+      serie: 3,
+      repeticion: 12,
+      carga: 15
+    },
+    {
+      orden: 3,
+      tipo: "brazos",
+      maquina: 50,
+      asiento: 7,
+      apoyo: null,
+      serie: 3,
+      repeticion: 12,
+      carga: 10
+    },
+    {
+      orden: 4,
+      tipo: "brazos",
+      maquina: 53,
+      asiento: 6,
+      apoyo: null,
+      serie: 4,
+      repeticion: 10,
+      carga: 5
+    },
+    {
+      orden: 5,
+      tipo: "piernas",
+      maquina: 1,
+      asiento: 3,
+      apoyo: 5,
+      serie: 4,
+      repeticion: 12,
+      carga: 50
+    },
+    {
+      tipo: "Abdominal/Lumbar",
+      orden: 6,
+      maquina: 40,
+      asiento: null,
+      apoyo: null,
+      serie: 4,
+      repeticion: 20,
+      carga: 15
+    }
+  ]
+
 
   constructor(public navCtrl: NavController) {
     this.db = firebase.firestore();
@@ -131,59 +207,5 @@ export class HomePage {
         });
     });
   }
-
-  
- 
-	empezarDetener()
-	{
-		if(this.timeout==0)
-		{
-			// empezar el cronometro
-      this.ValorCrono = "Detener";
- 
-			// Obtenemos el valor actual
-      this.inicio= this.vuelta = new Date().getTime();
-      console.log(this.inicio);
-      console.log(this.vuelta);
-      
-      
- 
-			// iniciamos el proceso
-			this.funcionando();
-		}else{
-			// detemer el cronometro
-      this.ValorCrono = "Empezar";
-			clearTimeout(this.timeout);
-			this.timeout=0;
-		}
-  }
-  
-  /* Funcion que pone un 0 delante de un valor si es necesario */
-	LeadingZero(Time) {
-		return (Time < 10) ? "0" + Time : + Time;
-	}
- 
-	funcionando()
-	{
-		// obteneos la fecha actual
-    this.actual = new Date().getTime();
-    console.log(this.actual);
-    
- 
-		// obtenemos la diferencia entre la fecha actual y la de inicio
-    this.diff=new Date(this.actual-this.inicio);
-    console.log(this.diff);
-    
-    
- 
-		// mostramos la diferencia entre la fecha actual y la inicial
-		var result= this.LeadingZero(this.diff.getUTCHours())+":"+this.LeadingZero(this.diff.getUTCMinutes())+":"+this.LeadingZero(this.diff.getUTCSeconds());
-    this.txtCrono = result;
- 
-		// Indicamos que se ejecute esta función nuevamente dentro de 1 segundo
-		this.timeout=setTimeout(this.funcionando,1000);
-	}
- 
-	
 
 }

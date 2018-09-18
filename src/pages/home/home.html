@@ -1,43 +1,77 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Crud example
+      Registro de ejercicios
     </ion-title>
   </ion-navbar>
 </ion-header>
- 
+
 <ion-content padding>
-<ion-list>
+
+  <ion-list>
     <ion-item>
-        <ion-label floating>Message title :</ion-label>
-        <ion-input type="text" value="" [(ngModel)]="model.title"></ion-input>
-      </ion-item>            
-      <ion-item>
-        <ion-label floating>Message body :</ion-label>
-        <ion-textarea   type="text" row="10" [(ngModel)]="model.text"></ion-textarea>
-      </ion-item>
-      <ion-item>
-          <button type="button" (click)="addMessage()" ion-button full >Submit</button>
-      </ion-item>
-</ion-list>
- 
-  <ion-card>
-    <ion-card-header>
-      Swipe item to the left to delete or edit
-    </ion-card-header>
-  </ion-card>
+      <ion-label>Número de ejercicio:</ion-label>
+      <ion-select [(ngModel)]="model.title" (ngModelChange)="onChange($event)">
+        <ion-option *ngFor="let ejercicio of ejercicios" value="{{ejercicio.orden}}">{{ejercicio.orden}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo ejercicio:</ion-label>
+      <ion-input value="{{tipo}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Número de maquina:</ion-label>
+      <ion-input value="{{maquina}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Asiento:</ion-label>
+      <ion-input value="{{asiento}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Apoyo:</ion-label>
+      <ion-input value="{{apoyo}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Series:</ion-label>
+      <ion-input value="{{serie}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Repeticiones:</ion-label>
+      <ion-input value="{{repeticion}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Carga:</ion-label>
+      <ion-input value="{{carga}} KG" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Message body:</ion-label>
+      <ion-textarea type="text" row="10" [(ngModel)]="model.text"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <button type="button" (click)="addMessage()" ion-button full>Guardar</button>
+    </ion-item>
+  </ion-list>
+
   <ion-list>
     <ion-item-sliding *ngFor="let message of messages">
       <ion-item>
-        <h3>title: {{message.title}}</h3>
+        <h3>Ejercicio numero: {{message.title}}</h3>
         <p>body: {{message.text}}</p>
       </ion-item>
       <ion-item-options>
         <button ion-button color="danger" (click)="deleteMessage(message.$key)">
-        <ion-icon name="ios-trash"></ion-icon>
-        delete
-      </button>
-      <button ion-button color="success" (click)="updateMessage(message)">
+          <ion-icon name="ios-trash"></ion-icon>
+          delete
+        </button>
+        <button ion-button color="success" (click)="updateMessage(message)">
           <ion-icon name="ios-create"></ion-icon>
           edit
         </button>
@@ -45,9 +79,4 @@
     </ion-item-sliding>
   </ion-list>
 
-  <input type="text" name="txtCrono" value="" [(ngModel)]="txtCrono">
-  <button ion-button color="info" (click)="empezarDetener()">
-    {{ValorCrono}}
-  </button>
- 
 </ion-content>
