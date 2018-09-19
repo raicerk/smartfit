@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, DateTime } from 'ionic-angular';
+import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
@@ -13,8 +14,6 @@ export class HomePage {
   private db: any;
   model: any = {};
   isEditing: boolean = false;
-  ValorCrono: string = "Empezar";
-  txtCrono: any;
   ordenEjercicio: number;
   maquina: number;
   tipo: string;
@@ -23,21 +22,25 @@ export class HomePage {
   serie: number;
   repeticion: number;
   carga: number;
+  n: number = 0;
+  stopCondition: boolean = false;
+  fechahora: any;
 
   onChange(numeroEjercicio) {
-    this.maquina = this.ejercicios[numeroEjercicio - 1].maquina;
-    this.tipo = this.ejercicios[numeroEjercicio - 1].tipo;
-    this.asiento = this.ejercicios[numeroEjercicio - 1].asiento;
-    this.apoyo = this.ejercicios[numeroEjercicio - 1].apoyo;
-    this.serie = this.ejercicios[numeroEjercicio - 1].serie;
-    this.repeticion = this.ejercicios[numeroEjercicio - 1].repeticion;
-    this.carga = this.ejercicios[numeroEjercicio - 1].carga;
+    this.model.maquina = this.ejercicios[numeroEjercicio - 1].maquina;
+    this.model.tipo = this.ejercicios[numeroEjercicio - 1].tipo;
+    this.model.asiento = this.ejercicios[numeroEjercicio - 1].asiento;
+    this.model.apoyo = this.ejercicios[numeroEjercicio - 1].apoyo;
+    this.model.serie = this.ejercicios[numeroEjercicio - 1].serie;
+    this.model.repeticion = this.ejercicios[numeroEjercicio - 1].repeticion;
+    this.model.carga = this.ejercicios[numeroEjercicio - 1].carga;
+    this.model.n = 0;
   }
 
   ejercicios: any = [
     {
       orden: 1,
-      tipo: "tronco",
+      tipo: "Tronco",
       maquina: 25,
       asiento: 5,
       apoyo: null,
@@ -47,7 +50,7 @@ export class HomePage {
     },
     {
       orden: 2,
-      tipo: "tronco",
+      tipo: "Tronco",
       maquina: 30,
       asiento: 5,
       apoyo: 5,
@@ -57,7 +60,7 @@ export class HomePage {
     },
     {
       orden: 3,
-      tipo: "brazos",
+      tipo: "Brazos",
       maquina: 50,
       asiento: 7,
       apoyo: null,
@@ -67,7 +70,7 @@ export class HomePage {
     },
     {
       orden: 4,
-      tipo: "brazos",
+      tipo: "Brazos",
       maquina: 53,
       asiento: 6,
       apoyo: null,
@@ -77,7 +80,7 @@ export class HomePage {
     },
     {
       orden: 5,
-      tipo: "piernas",
+      tipo: "Piernas",
       maquina: 1,
       asiento: 3,
       apoyo: 5,
@@ -114,27 +117,8 @@ export class HomePage {
       this.addDocument("messages", this.model).then(() => {
         this.loadData();//refresh view
       });
-    } else {
-      this.updateDocument("messages", this.model.$key, this.model).then(() => {
-        this.loadData();//refresh view
-      });
     }
     this.isEditing = false;
-    //clear form
-    this.model.title = '';
-    this.model.text = '';
-  }
-
-  updateMessage(obj) {
-    this.model = obj;
-    this.isEditing = true;
-  }
-
-  deleteMessage(key) {
-    this.deleteDocument("messages", key).then(() => {
-      this.loadData();//refresh view
-      this.isEditing = false;
-    });
   }
 
   getAllDocuments(collection: string): Promise<any> {
@@ -166,21 +150,6 @@ export class HomePage {
     });
   }
 
-  deleteDocument(collectionName: string, docID: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.db
-        .collection(collectionName)
-        .doc(docID)
-        .delete()
-        .then((obj: any) => {
-          resolve(obj);
-        })
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
-  }
-
   addDocument(collectionName: string, dataObj: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db.collection(collectionName).add(dataObj)
@@ -193,19 +162,22 @@ export class HomePage {
     });
   }
 
-  updateDocument(collectionName: string, docID: string, dataObj: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.db
-        .collection(collectionName)
-        .doc(docID)
-        .update(dataObj)
-        .then((obj: any) => {
-          resolve(obj);
-        })
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
+  iniciar() {
+    this.model.fechahora = new Date().toString();
+    this.stopCondition = false;
+    Observable.interval(1000)
+      .takeWhile(() => !this.stopCondition)
+      .subscribe(i => {
+        this.model.n = this.model.n + 1;
+      })
+  }
+
+  pausar() {
+    this.stopCondition = true;
+  }
+
+  reiniciar(){
+    this.model.n = 0;
   }
 
 }

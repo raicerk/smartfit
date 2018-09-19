@@ -1,11 +1,23 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Historial
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Últimos entrenamientos
+    </ion-list-header>
+    <ion-item *ngFor="let message of messages">
+      <ion-icon name="body" item-start></ion-icon>
+      Ejercicio número {{message.numero}}
+      <h4>Tipo de ejercicio : {{message.tipo}}</h4>
+      <h4>Maquina número {{message.maquina}}</h4>
+      <h4>Tiempo entrenamiento de {{message.n}} segundos</h4>
+      <p>{{message.fechahora}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>

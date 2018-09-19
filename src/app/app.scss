@@ -18,3 +18,11 @@
 .text-input-md{
     text-align: right !important;
 }
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom: 1px solid #dedede !important;
+    border-bottom-color: #dedede !important;
+    border-bottom-color: #dedede; 
+    -webkit-box-shadow: inset 0 -1px 0 0 #dedede;
+    box-shadow: inset 0 -1px 0 0 #dedede;
+}
