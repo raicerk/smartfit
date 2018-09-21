@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, DateTime } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -25,17 +25,10 @@ export class HomePage {
   n: number = 0;
   stopCondition: boolean = false;
   fechahora: any;
-
-  onChange(numeroEjercicio) {
-    this.model.maquina = this.ejercicios[numeroEjercicio - 1].maquina;
-    this.model.tipo = this.ejercicios[numeroEjercicio - 1].tipo;
-    this.model.asiento = this.ejercicios[numeroEjercicio - 1].asiento;
-    this.model.apoyo = this.ejercicios[numeroEjercicio - 1].apoyo;
-    this.model.serie = this.ejercicios[numeroEjercicio - 1].serie;
-    this.model.repeticion = this.ejercicios[numeroEjercicio - 1].repeticion;
-    this.model.carga = this.ejercicios[numeroEjercicio - 1].carga;
-    this.model.n = 0;
-  }
+  btnIniciar = false;
+  btnGuardar = true;
+  btnPausar = true;
+  btnReiniciar = true;
 
   ejercicios: any = [
     {
@@ -101,9 +94,10 @@ export class HomePage {
   ]
 
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
     this.db = firebase.firestore();
     this.loadData();
+    this.btnIniciar = true;
   }
 
   loadData() {
@@ -116,6 +110,17 @@ export class HomePage {
     if (!this.isEditing) {
       this.addDocument("messages", this.model).then(() => {
         this.loadData();//refresh view
+        const alert = this.alertCtrl.create({
+          title: 'Información',
+          message: 'El entrenamiento a sido almacenado correctamente!',
+          buttons: ['OK']
+        });
+        alert.present();
+        
+        this.btnIniciar = true;
+        this.btnPausar = true;
+        this.btnReiniciar = true;
+        this.btnGuardar = true;
       });
     }
     this.isEditing = false;
@@ -162,18 +167,40 @@ export class HomePage {
     });
   }
 
+  onChange(numeroEjercicio) {
+    this.model.maquina = this.ejercicios[numeroEjercicio - 1].maquina;
+    this.model.tipo = this.ejercicios[numeroEjercicio - 1].tipo;
+    this.model.asiento = this.ejercicios[numeroEjercicio - 1].asiento;
+    this.model.apoyo = this.ejercicios[numeroEjercicio - 1].apoyo;
+    this.model.serie = this.ejercicios[numeroEjercicio - 1].serie;
+    this.model.repeticion = this.ejercicios[numeroEjercicio - 1].repeticion;
+    this.model.carga = this.ejercicios[numeroEjercicio - 1].carga;
+    this.model.n = 0;
+    this.btnIniciar = false;
+    this.btnPausar = true;
+    this.btnReiniciar = true;
+    this.btnGuardar = true;
+  }
+
   iniciar() {
-    this.model.fechahora = new Date().toString();
+    this.model.fechahora = new Date();
     this.stopCondition = false;
     Observable.interval(1000)
       .takeWhile(() => !this.stopCondition)
       .subscribe(i => {
-        this.model.n = this.model.n + 1;
+        this.model.n = parseInt(this.model.n) + 1;
       })
+    this.btnIniciar = true;
+    this.btnPausar = false;
+    this.btnReiniciar = false;
+
   }
 
   pausar() {
     this.stopCondition = true;
+    this.btnIniciar = false;
+    this.btnPausar = true;
+    this.btnGuardar = false;
   }
 
   reiniciar(){

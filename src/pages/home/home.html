@@ -11,15 +11,15 @@
   <ion-list>
 
     <ion-item>
-      <ion-label>Fecha / Hora:</ion-label>
-      <ion-input [(ngModel)]="model.fechahora" value="{{fechahora}}" [readonly]="true"></ion-input>
+      <ion-label>Número de ejercicio:</ion-label>
+      <ion-select [(ngModel)]="model.numero" (ngModelChange)="onChange($event)">
+        <ion-option *ngFor="let ejercicio of ejercicios" value="{{ejercicio.orden}}">Número {{ejercicio.orden}} : {{ejercicio.tipo}}</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label>Número de ejercicio:</ion-label>
-      <ion-select [(ngModel)]="model.numero" (ngModelChange)="onChange($event)">
-        <ion-option *ngFor="let ejercicio of ejercicios" value="{{ejercicio.orden}}">{{ejercicio.orden}}</ion-option>
-      </ion-select>
+      <ion-label>Fecha / Hora:</ion-label>
+      <ion-input [(ngModel)]="model.fechahora" value="{{fechahora}}" [readonly]="true"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -65,23 +65,21 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <button type="button" (click)="iniciar()" ion-button full>Iniciar</button>
+            <button type="button" (click)="iniciar()" [disabled]='btnIniciar' ion-button full>Iniciar</button>
           </ion-col>
           <ion-col>
-            <button type="button" (click)="pausar()" ion-button full>Pausar</button>
+            <button type="button" (click)="pausar()" [disabled]='btnPausar' ion-button full>Pausar</button>
           </ion-col>
           <ion-col>
-            <button type="button" (click)="reiniciar()" ion-button full>Reiniciar</button>
+            <button type="button" (click)="reiniciar()" [disabled]='btnReiniciar' ion-button full>Reiniciar</button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>
 
     <ion-item>
-      <button type="button" (click)="addMessage()" ion-button full>Guardar</button>
+      <button type="button" (click)="addMessage()" [disabled]='btnGuardar' ion-button full>Guardar</button>
     </ion-item>
   </ion-list>
-
-  <hr>
 
 </ion-content>

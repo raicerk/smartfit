@@ -17,7 +17,7 @@
       <h4>Tipo de ejercicio : {{message.tipo}}</h4>
       <h4>Maquina número {{message.maquina}}</h4>
       <h4>Tiempo entrenamiento de {{message.n}} segundos</h4>
-      <p>{{message.fechahora}}</p>
+      <p>{{message.fechahora | date : 'dd-MM-yyyy H:mm:ss'}}</p>
     </ion-item>
   </ion-list>
 </ion-content>
