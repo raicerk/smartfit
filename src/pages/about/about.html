@@ -15,9 +15,9 @@
       <ion-icon name="body" item-start></ion-icon>
       Ejercicio número {{message.numero}}
       <h4>Tipo de ejercicio : {{message.tipo}}</h4>
-      <h4>Maquina número {{message.maquina}}</h4>
+      <h4>Maquina número : {{message.maquina}}</h4>
+      <h4>Fecha/Hora : {{message.fechahora | date : 'dd-MM-yyyy H:mm:ss'}}</h4>
       <h4>Tiempo entrenamiento de {{message.n}} segundos</h4>
-      <h4>{{message.fechahora | date : 'dd-MM-yyyy H:mm:ss'}}</h4>
     </ion-item>
   </ion-list>
 </ion-content>
