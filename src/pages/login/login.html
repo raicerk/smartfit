@@ -1,18 +1,29 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-<button btn (click)="login()">Login</button>
+  <div class="space">
+    <img src="../../assets/imgs/logosmartfit.png"/>
+  </div>
+
+  <ion-list class="space2">
+
+    <ion-item>
+      <ion-label fixed>RUT</ion-label>
+      <ion-input type="text" [(ngModel)]="rut" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="contrasena"></ion-input>
+    </ion-item>
+
+    <ion-item>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button full (click)="login()">Ingresar</button>
+
 </ion-content>

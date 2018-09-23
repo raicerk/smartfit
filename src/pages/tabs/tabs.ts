@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { NavController, NavParams } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
@@ -13,7 +13,7 @@ export class TabsPage {
   tab2Root = AboutPage;
   tab3Root = ContactPage;
 
-  constructor() {
-
+  constructor(public navParams: NavParams) {
+      console.log(this.navParams.get('rut'))
   }
 }
