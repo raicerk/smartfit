@@ -24,6 +24,6 @@
 
   </ion-list>
 
-  <button ion-button full (click)="login()">Ingresar</button>
+  <button ion-button full (click)="login()" [disabled]="btnLogin">{{btnLoginText}}</button>
 
 </ion-content>

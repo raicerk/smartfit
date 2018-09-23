@@ -18,6 +18,8 @@ export class LoginPage {
 
   rut: string;
   contrasena: string;
+  btnLogin: boolean = false;
+  btnLoginText: string = "INGRESAR";
 
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -27,6 +29,9 @@ export class LoginPage {
   }
 
   async login() {
+
+    this.btnLogin = true;
+    this.btnLoginText = "VALIDANDO..."
 
     const goNFetch = GoNFetch({
       baseUrl: 'https://apismartfit.appspot.com/',
@@ -46,6 +51,8 @@ export class LoginPage {
         buttons: ['OK']
       });
       alert.present();
+      this.btnLogin = false;
+      this.btnLoginText = "INGRESAR";
     }
   }
 
