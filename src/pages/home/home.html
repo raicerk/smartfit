@@ -11,6 +11,11 @@
   <ion-list>
 
     <ion-item>
+      <ion-label>Rut:</ion-label>
+      <ion-input [(ngModel)]="model.rut" value="{{rut}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Número de ejercicio:</ion-label>
       <ion-select [(ngModel)]="model.numero" (ngModelChange)="onChange($event)">
         <ion-option *ngFor="let ejercicio of ejercicios" value="{{ejercicio.orden}}">Número {{ejercicio.orden}} : {{ejercicio.tipo}}</ion-option>

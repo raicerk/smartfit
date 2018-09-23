@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
+
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -13,7 +15,7 @@ export class TabsPage {
   tab2Root = AboutPage;
   tab3Root = ContactPage;
 
-  constructor(public navParams: NavParams) {
-      console.log(this.navParams.get('rut'))
+  constructor(public navParams: NavParams, public storage: Storage) {
+    this.storage.set('rut', this.navParams.get('rut'));
   }
 }

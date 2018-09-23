@@ -3,6 +3,7 @@ import { AlertController, NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -29,6 +30,7 @@ export class HomePage {
   btnGuardar = true;
   btnPausar = true;
   btnReiniciar = true;
+  rut: string;
 
   ejercicios: any = [
     {
@@ -39,7 +41,7 @@ export class HomePage {
       apoyo: null,
       serie: 3,
       repeticion: 12,
-      carga: 15
+      carga: 20
     },
     {
       orden: 2,
@@ -49,7 +51,7 @@ export class HomePage {
       apoyo: 5,
       serie: 3,
       repeticion: 12,
-      carga: 15
+      carga: 20
     },
     {
       orden: 3,
@@ -59,7 +61,7 @@ export class HomePage {
       apoyo: null,
       serie: 3,
       repeticion: 12,
-      carga: 10
+      carga: 15
     },
     {
       orden: 4,
@@ -69,7 +71,7 @@ export class HomePage {
       apoyo: null,
       serie: 4,
       repeticion: 10,
-      carga: 5
+      carga: 10
     },
     {
       orden: 5,
@@ -79,7 +81,7 @@ export class HomePage {
       apoyo: 5,
       serie: 4,
       repeticion: 12,
-      carga: 50
+      carga: 60
     },
     {
       tipo: "Abdominal/Lumbar",
@@ -89,34 +91,29 @@ export class HomePage {
       apoyo: null,
       serie: 4,
       repeticion: 20,
-      carga: 15
+      carga: 20
     }
   ]
 
-
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public storage: Storage) {
     this.db = firebase.firestore();
-    this.loadData();
-    this.btnIniciar = true;
-  }
-
-  loadData() {
-    this.getAllDocuments("messages").then((e) => {
-      this.messages = e;
+    this.storage.get('rut').then((val) => {
+      this.rut = val;
+      this.model.rut = this.rut;
     });
+    this.btnIniciar = true;
   }
 
   addMessage() {
     if (!this.isEditing) {
       this.addDocument("messages", this.model).then(() => {
-        this.loadData();//refresh view
         const alert = this.alertCtrl.create({
           title: 'Información',
           message: 'El entrenamiento a sido almacenado correctamente!',
           buttons: ['OK']
         });
         alert.present();
-        
+
         this.btnIniciar = true;
         this.btnPausar = true;
         this.btnReiniciar = true;
@@ -124,35 +121,6 @@ export class HomePage {
       });
     }
     this.isEditing = false;
-  }
-
-  getAllDocuments(collection: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.db.collection(collection)
-        .get()
-        .then((querySnapshot) => {
-          let arr = [];
-          querySnapshot.forEach(function (doc) {
-            var obj = JSON.parse(JSON.stringify(doc.data()));
-            obj.$key = doc.id
-            console.log(obj)
-            arr.push(obj);
-          });
-
-          if (arr.length > 0) {
-            console.log("Document data:", arr);
-            resolve(arr);
-          } else {
-            console.log("No such document!");
-            resolve(null);
-          }
-
-
-        })
-        .catch((error: any) => {
-          reject(error);
-        });
-    });
   }
 
   addDocument(collectionName: string, dataObj: any): Promise<any> {
@@ -203,7 +171,7 @@ export class HomePage {
     this.btnGuardar = false;
   }
 
-  reiniciar(){
+  reiniciar() {
     this.model.n = 0;
   }
 
