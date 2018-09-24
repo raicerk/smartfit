@@ -17,12 +17,12 @@ import * as firebase from 'firebase';
 import { IonicStorageModule } from '@ionic/storage';
 
 const config = {
-  apiKey: "AIzaSyDfufyZSQXEDy6XKcLwDyAtuHs5WvBgT4I",
-  authDomain: "smartfit-16f6c.firebaseapp.com",
-  databaseURL: "https://smartfit-16f6c.firebaseio.com",
-  projectId: "smartfit-16f6c",
-  storageBucket: "smartfit-16f6c.appspot.com",
-  messagingSenderId: "526276590283"
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: ""
 };
 firebase.initializeApp(config);
 
