@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import GoNFetch from 'go-n-fetch'
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the LoginPage page.
  *
@@ -21,7 +21,7 @@ export class LoginPage {
   btnLogin: boolean = false;
   btnLoginText: string = "INGRESAR";
 
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -43,7 +43,8 @@ export class LoginPage {
     var response = await goNFetch.post(`/Login`, { body: JSON.stringify({ "rut": this.rut, "contrasena": this.contrasena }) });
     var data = await response.json();
     if (data.exito) {
-      this.navCtrl.setRoot(TabsPage, { rut: this.rut });
+      this.storage.set('rut', this.rut);
+      this.navCtrl.setRoot(TabsPage);
     } else {
       const alert = this.alertCtrl.create({
         title: 'Login',

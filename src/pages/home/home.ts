@@ -98,6 +98,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public storage: Storage) {
     this.db = firebase.firestore();
     this.storage.get('rut').then((val) => {
+    console.log(`home : ${val}`);
       this.rut = val;
       this.model.rut = this.rut;
     });

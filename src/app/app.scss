@@ -143,3 +143,12 @@
   -webkit-box-shadow: inset 0 -1px 0 0 #fbb813;
   box-shadow: inset 0 -1px 0 0 #fbb813;
 }
+
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+    color: #fff;
+    background-color: transparent;
+}
+
+.bar-button-default-md:hover:not(.disable-hover), .bar-button-clear-md-default:hover:not(.disable-hover), .bar-button-md-default:hover:not(.disable-hover) {
+    color: #fbb813;
+}
