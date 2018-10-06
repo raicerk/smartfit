@@ -14,6 +14,8 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ConfiguracionPage {
 
+	model: any = {};
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

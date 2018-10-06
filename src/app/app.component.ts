@@ -19,7 +19,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     this.pages = [
-      { title: 'Configuración', component: ConfiguracionPage, icon: 'settings' },
+      { title: 'Configurar rutina', component: ConfiguracionPage, icon: 'settings' },
       { title: 'Acerca de', component: null, icon: 'alert' },
       { title: 'Cerrar Sesión', component: null, icon: 'close' }
     ];

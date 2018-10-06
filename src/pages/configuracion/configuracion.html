@@ -7,12 +7,63 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>configuracion</ion-title>
+    <ion-title>Configurar rutina</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Tipo ejercicio:</ion-label>
+      <ion-input [(ngModel)]="model.tipo" value="{{tipo}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Número de maquina:</ion-label>
+      <ion-input [(ngModel)]="model.maquina" value="{{maquina}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Asiento:</ion-label>
+      <ion-input [(ngModel)]="model.asiento" value="{{asiento}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Apoyo:</ion-label>
+      <ion-input [(ngModel)]="model.apoyo" value="{{apoyo}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Series:</ion-label>
+      <ion-input [(ngModel)]="model.serie" value="{{serie}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Repeticiones:</ion-label>
+      <ion-input [(ngModel)]="model.repeticion" value="{{repeticion}}" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Carga:</ion-label>
+      <ion-input [(ngModel)]="model.carga" value="{{carga}} KG" [readonly]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <button type="button" (click)="addMessage()" [disabled]='btnGuardar' ion-button full>Agregar</button>
+    </ion-item>
+
+    <ion-item>
+      <button type="button" (click)="addMessage()" [disabled]='btnGuardar' ion-button full>Ver Rutina completa</button>
+    </ion-item>
+
+    <ion-item>
+      <button type="button" (click)="addMessage()" [disabled]='btnGuardar' ion-button full>Guardar Rutina</button>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>
