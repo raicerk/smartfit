@@ -19,41 +19,45 @@
 
     <ion-item>
       <ion-label>Tipo ejercicio:</ion-label>
-      <ion-input [(ngModel)]="model.tipo" value="{{tipo}}" [readonly]="true"></ion-input>
+      <ion-select [(ngModel)]="model.tipo" (ngModelChange)="seleccionatipo($event)">
+        <ion-option *ngFor="let te of TipoEjercicio" value="{{te.id}}">{{te.tipo}}</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label>Número de maquina:</ion-label>
-      <ion-input [(ngModel)]="model.maquina" value="{{maquina}}" [readonly]="true"></ion-input>
+      <ion-label>Maquina:</ion-label>
+      <ion-select [(ngModel)]="model.numero" (ngModelChange)="seleccionaejercicio($event)">
+        <ion-option *ngFor="let ej of Ejercicio" value="{{ej.numero}}">{{ej.numero}}:{{ej.nombre}}</ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Asiento:</ion-label>
-      <ion-input [(ngModel)]="model.asiento" value="{{asiento}}" [readonly]="true"></ion-input>
+      <ion-input [(ngModel)]="model.asiento" value="{{asiento}}"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Apoyo:</ion-label>
-      <ion-input [(ngModel)]="model.apoyo" value="{{apoyo}}" [readonly]="true"></ion-input>
+      <ion-input [(ngModel)]="model.apoyo" value="{{apoyo}}"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Series:</ion-label>
-      <ion-input [(ngModel)]="model.serie" value="{{serie}}" [readonly]="true"></ion-input>
+      <ion-input [(ngModel)]="model.serie" value="{{serie}}"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Repeticiones:</ion-label>
-      <ion-input [(ngModel)]="model.repeticion" value="{{repeticion}}" [readonly]="true"></ion-input>
+      <ion-input [(ngModel)]="model.repeticion" value="{{repeticion}}"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Carga:</ion-label>
-      <ion-input [(ngModel)]="model.carga" value="{{carga}} KG" [readonly]="true"></ion-input>
+      <ion-label>Carga(KG):</ion-label>
+      <ion-input [(ngModel)]="model.carga" value="{{carga}}"></ion-input>
     </ion-item>
 
     <ion-item>
-      <button type="button" (click)="addMessage()" [disabled]='btnGuardar' ion-button full>Agregar</button>
+      <button type="button" (click)="agregar()" [disabled]='btnGuardar' ion-button full>Agregar</button>
     </ion-item>
 
     <ion-item>
@@ -61,7 +65,7 @@
     </ion-item>
 
     <ion-item>
-      <button type="button" (click)="addMessage()" [disabled]='btnGuardar' ion-button full>Guardar Rutina</button>
+      <button type="button" (click)="guardarutina()" [disabled]='btnGuardar' ion-button full>Guardar Rutina</button>
     </ion-item>
 
   </ion-list>
