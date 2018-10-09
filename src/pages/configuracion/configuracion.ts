@@ -169,14 +169,32 @@ export class ConfiguracionPage {
 	}
 
 	guardarutina() {
-		this.addDocument("rutina", this.Rutina).then(() => {
-			const alert = this.alertCtrl.create({
-				title: 'Información',
-				message: 'La rutina a sido almacenada correctamente!',
-				buttons: ['OK']
+
+		for (var i = 0; i < this.Rutina.length; i++) {
+
+			var objeto = {
+				orden: this.isundefinied(this.Rutina[i].orden),
+				tipo: this.isundefinied(this.Rutina[i].tipo),
+				maquina: this.isundefinied(this.Rutina[i].numero),
+				asiento: this.isundefinied(this.Rutina[i].asiento),
+				apoyo: this.isundefinied(this.Rutina[i].apoyo),
+				serie: this.isundefinied(this.Rutina[i].serie),
+				repeticion: this.isundefinied(this.Rutina[i].repeticion),
+				carga: this.isundefinied(this.Rutina[i].carga),
+			};
+
+			this.addDocument("rutina", objeto).then(() => {
+
 			});
-			alert.present();
+		}
+
+		const alert = this.alertCtrl.create({
+			title: 'Información',
+			message: 'La rutina a sido almacenada correctamente!',
+			buttons: ['OK']
 		});
+		
+		alert.present();
 	}
 
 	addDocument(collectionName: string, dataObj: any): Promise<any> {
