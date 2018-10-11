@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ConfiguracionPage page.
@@ -130,9 +131,14 @@ export class ConfiguracionPage {
 	]
 	Ejercicio: any;
 	Rutina: Array<any> = [];
+	rut: string;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public storage: Storage) {
 		this.db = firebase.firestore();
+		this.storage.get('rut').then((val) => {
+			console.log(`home : ${val}`);
+			this.rut = val;
+		});
 	}
 
 	ionViewDidLoad() {
@@ -148,9 +154,11 @@ export class ConfiguracionPage {
 	}
 
 	agregar() {
+		console.log("rut para guardar ${this.rut}")
 
 		this.Rutina.push(
 			{
+				rut: this.rut,
 				orden: this.Rutina.length + 1,
 				tipo: this.isundefinied(this.model.tipo),
 				maquina: this.isundefinied(this.model.numero),
@@ -173,6 +181,7 @@ export class ConfiguracionPage {
 		for (var i = 0; i < this.Rutina.length; i++) {
 
 			var objeto = {
+				rut: this.isundefinied(this.Rutina[i].rut),
 				orden: this.isundefinied(this.Rutina[i].orden),
 				tipo: this.isundefinied(this.Rutina[i].tipo),
 				maquina: this.isundefinied(this.Rutina[i].numero),
@@ -193,7 +202,7 @@ export class ConfiguracionPage {
 			message: 'La rutina a sido almacenada correctamente!',
 			buttons: ['OK']
 		});
-		
+
 		alert.present();
 	}
 

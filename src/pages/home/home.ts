@@ -31,6 +31,7 @@ export class HomePage {
   btnPausar = true;
   btnReiniciar = true;
   rut: string;
+  rutina: any;
 
   ejercicios: any = [
     {
@@ -99,10 +100,44 @@ export class HomePage {
     this.db = firebase.firestore();
     this.storage.get('rut').then((val) => {
     console.log(`home : ${val}`);
+      this.cargaRutina(val).then(response=>{
+        this.rutina = response;
+      })
       this.rut = val;
       this.model.rut = this.rut;
     });
     this.btnIniciar = true;
+  }
+
+  ionViewWillEnter() {
+    console.log("DEntre")
+  }
+
+  cargaRutina(rut: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.db.collection("rutina")
+        .where("rut", "==", rut)
+        .get()
+        .then((querySnapshot) => {
+          let arr = [];
+          querySnapshot.forEach(function(doc) {
+            var obj = JSON.parse(JSON.stringify(doc.data()));
+            obj.$key = doc.id
+            console.log(obj)
+            arr.push(obj);
+          });
+
+          if (arr.length > 0) {
+            resolve(arr);
+          } else {
+            resolve(null);
+          }
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
+    });
+  
   }
 
   addMessage() {
