@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/app';
 import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 
@@ -11,8 +12,9 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
-  messages: any;
+  
   private db: any;
+  messages: any;
   model: any = {};
   isEditing: boolean = false;
   ordenEjercicio: number;
@@ -33,74 +35,11 @@ export class HomePage {
   rut: string;
   rutina: any;
 
-  ejercicios: any = [
-    {
-      orden: 1,
-      tipo: "Tronco",
-      maquina: 25,
-      asiento: 5,
-      apoyo: null,
-      serie: 3,
-      repeticion: 12,
-      carga: 20
-    },
-    {
-      orden: 2,
-      tipo: "Tronco",
-      maquina: 30,
-      asiento: 5,
-      apoyo: 5,
-      serie: 3,
-      repeticion: 12,
-      carga: 20
-    },
-    {
-      orden: 3,
-      tipo: "Brazos",
-      maquina: 50,
-      asiento: 7,
-      apoyo: null,
-      serie: 3,
-      repeticion: 12,
-      carga: 15
-    },
-    {
-      orden: 4,
-      tipo: "Brazos",
-      maquina: 53,
-      asiento: 6,
-      apoyo: null,
-      serie: 4,
-      repeticion: 10,
-      carga: 10
-    },
-    {
-      orden: 5,
-      tipo: "Piernas",
-      maquina: 1,
-      asiento: 3,
-      apoyo: 5,
-      serie: 4,
-      repeticion: 12,
-      carga: 60
-    },
-    {
-      tipo: "Abdominal/Lumbar",
-      orden: 6,
-      maquina: 40,
-      asiento: null,
-      apoyo: null,
-      serie: 4,
-      repeticion: 20,
-      carga: 20
-    }
-  ]
-
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public storage: Storage) {
     this.db = firebase.firestore();
+    this.db.settings({ timestampsInSnapshots: true });
     this.storage.get('rut').then((val) => {
-    console.log(`home : ${val}`);
-      this.cargaRutina(val).then(response=>{
+      this.cargaRutina(val).then(response => {
         this.rutina = response;
       })
       this.rut = val;
@@ -110,20 +49,20 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    console.log("DEntre")
   }
 
   cargaRutina(rut: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.db.collection("rutina")
         .where("rut", "==", rut)
+        .orderBy("orden", "asc")
+        .limit(1000)
         .get()
         .then((querySnapshot) => {
           let arr = [];
           querySnapshot.forEach(function(doc) {
             var obj = JSON.parse(JSON.stringify(doc.data()));
             obj.$key = doc.id
-            console.log(obj)
             arr.push(obj);
           });
 
@@ -137,7 +76,7 @@ export class HomePage {
           reject(error);
         });
     });
-  
+
   }
 
   addMessage() {
@@ -172,13 +111,8 @@ export class HomePage {
   }
 
   onChange(numeroEjercicio) {
-    this.model.maquina = this.ejercicios[numeroEjercicio - 1].maquina;
-    this.model.tipo = this.ejercicios[numeroEjercicio - 1].tipo;
-    this.model.asiento = this.ejercicios[numeroEjercicio - 1].asiento;
-    this.model.apoyo = this.ejercicios[numeroEjercicio - 1].apoyo;
-    this.model.serie = this.ejercicios[numeroEjercicio - 1].serie;
-    this.model.repeticion = this.ejercicios[numeroEjercicio - 1].repeticion;
-    this.model.carga = this.ejercicios[numeroEjercicio - 1].carga;
+    this.model = this.rutina.find(ejer => ejer.orden == numeroEjercicio);
+    console.log(this.model);
     this.model.n = 0;
     this.btnIniciar = false;
     this.btnPausar = true;

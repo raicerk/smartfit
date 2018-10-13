@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController, NavParams } from 'ionic-angular';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/app';
 import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 
@@ -19,6 +20,7 @@ export class ConfiguracionPage {
 
 	private db: any;
 	model: any = {};
+	nombreTipo: string;
 	TipoEjercicio: any = [
 		{
 			id: 0,
@@ -147,29 +149,22 @@ export class ConfiguracionPage {
 
 	seleccionatipo(IdTipo) {
 		this.Ejercicio = this.TipoEjercicio[IdTipo].ejercicio;
-	}
-
-
-	seleccionaejercicio(NumeroEjercicio) {
+		this.nombreTipo = this.TipoEjercicio.find(ejer => ejer.id == IdTipo).tipo;
 	}
 
 	agregar() {
-		console.log("rut para guardar ${this.rut}")
-
-		this.Rutina.push(
-			{
-				rut: this.rut,
-				orden: this.Rutina.length + 1,
-				tipo: this.isundefinied(this.model.tipo),
-				maquina: this.isundefinied(this.model.numero),
-				asiento: this.isundefinied(this.model.asiento),
-				apoyo: this.isundefinied(this.model.apoyo),
-				serie: this.isundefinied(this.model.serie),
-				repeticion: this.isundefinied(this.model.repeticion),
-				carga: this.isundefinied(this.model.carga)
-			}
-		)
-		console.log(this.Rutina)
+		let rutina = {
+			rut: this.rut,
+			orden: this.Rutina.length + 1,
+			tipo: this.isundefinied(this.nombreTipo),
+			maquina: this.isundefinied(this.model.numero),
+			asiento: this.isundefinied(this.model.asiento),
+			apoyo: this.isundefinied(this.model.apoyo),
+			serie: this.isundefinied(this.model.serie),
+			repeticion: this.isundefinied(this.model.repeticion),
+			carga: this.isundefinied(this.model.carga)
+		}
+		this.Rutina.push(rutina)
 	}
 
 	isundefinied(variable) {
@@ -184,7 +179,7 @@ export class ConfiguracionPage {
 				rut: this.isundefinied(this.Rutina[i].rut),
 				orden: this.isundefinied(this.Rutina[i].orden),
 				tipo: this.isundefinied(this.Rutina[i].tipo),
-				maquina: this.isundefinied(this.Rutina[i].numero),
+				maquina: this.isundefinied(this.Rutina[i].maquina),
 				asiento: this.isundefinied(this.Rutina[i].asiento),
 				apoyo: this.isundefinied(this.Rutina[i].apoyo),
 				serie: this.isundefinied(this.Rutina[i].serie),

@@ -13,7 +13,11 @@ import { ConfiguracionPage } from '../pages/configuracion/configuracion';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
 import { IonicStorageModule } from '@ionic/storage';
 
 const config = {

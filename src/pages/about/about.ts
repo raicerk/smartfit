@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/app';
 import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 
