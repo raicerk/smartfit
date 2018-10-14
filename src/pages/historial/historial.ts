@@ -6,10 +6,10 @@ import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 
 @Component({
-  selector: 'page-about',
-  templateUrl: 'about.html'
+  selector: 'page-historial',
+  templateUrl: 'historial.html'
 })
-export class AboutPage {
+export class HistorialPage {
 
   private db: any;
   messages: any;
