@@ -21,7 +21,6 @@ export class AboutPage {
     this.storage.get('rut').then((val) => {
       this.rut = val;
       this.db = firebase.firestore();
-      this.loadData();
     });
 
   }
@@ -30,18 +29,17 @@ export class AboutPage {
     this.loadData();
   }
 
-  sortByDate(arr) {
-    arr.sort(function(a, b) {
-      return Number(new Date(b.fechahora)) - Number(new Date(a.fechahora));
-    });
-    return arr;
-  }
-
   loadData() {
     this.getAllDocuments("messages", this.rut).then((e) => {
+      console.log("--------------------------------")
+      console.log(e);
+      console.log("--------------------------------")
       if (e != null) {
-        this.messages = this.sortByDate(e);
+        this.messages = e;
       }
+      console.log("********************************")
+      console.log(this.messages);
+      console.log("********************************")
     });
   }
 
@@ -49,13 +47,13 @@ export class AboutPage {
     return new Promise((resolve, reject) => {
       this.db.collection(collection)
         .where("rut", "==", rut)
+        .orderBy("fechahora","desc")
         .get()
         .then((querySnapshot) => {
           let arr = [];
           querySnapshot.forEach(function(doc) {
             var obj = JSON.parse(JSON.stringify(doc.data()));
             obj.$key = doc.id
-            console.log(obj)
             arr.push(obj);
           });
 

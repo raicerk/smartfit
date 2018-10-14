@@ -37,7 +37,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public storage: Storage) {
     this.db = firebase.firestore();
-    this.db.settings({ timestampsInSnapshots: true });
+    this.db.settings({ timestampsInSnapshots: false });
     this.storage.get('rut').then((val) => {
       this.cargaRutina(val).then(response => {
         this.rutina = response;
