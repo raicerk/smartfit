@@ -4,7 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { LoginPage } from '../pages/login/login';
-import { AboutPage } from '../pages/about/about';
+import { HistorialPage } from '../pages/historial/historial';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -19,6 +19,9 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { EjerciciosProvider } from '../providers/ejercicios/ejercicios';
+
+import { NombreEjercicioPipe } from '../pipes/nombre-ejercicio/nombre-ejercicio';
 
 const config = {
   apiKey: "AIzaSyDfufyZSQXEDy6XKcLwDyAtuHs5WvBgT4I",
@@ -34,11 +37,12 @@ firebase.initializeApp(config);
   declarations: [
     MyApp,
     LoginPage,
-    AboutPage,
+    HistorialPage,
     ContactPage,
     HomePage,
     ConfiguracionPage,
-    TabsPage
+    TabsPage,
+    NombreEjercicioPipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,7 @@ firebase.initializeApp(config);
   entryComponents: [
     MyApp,
     LoginPage,
-    AboutPage,
+    HistorialPage,
     ContactPage,
     HomePage,
     ConfiguracionPage,
@@ -58,7 +62,8 @@ firebase.initializeApp(config);
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    EjerciciosProvider
   ]
 })
 export class AppModule {}

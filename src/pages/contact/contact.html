@@ -10,5 +10,16 @@
 </ion-header>
 
 <ion-content>
-  <button (click)="cerrarsesion()">Cerrar sesión</button>
+  <ion-list>
+    <ion-list-header>
+      Ejercicios
+    </ion-list-header>
+
+    <ion-item-group [reorder]="true" (ionItemReorder)="reorderItems($event)">
+      <ion-item *ngFor="let ejer of rutina">
+        <h2>{{ ejer.orden }} : {{ ejer.tipo | nombreEjercicio: ejer.tipo : ejer.maquina  }}</h2>
+        <p>{{ ejer.serie }} Series • {{ ejer.repeticion }} repeticiones</p>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
