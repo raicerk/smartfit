@@ -15,6 +15,6 @@ export class NombreEjercicioPipe implements PipeTransform {
 
 	transform(value: string, ...args) {
 		let ejercicios = this.ejerc.get().find(ejer => ejer.tipo == args[0]).ejercicio;
-		return ejercicios.find(ejerc => ejerc.maquina = args[1]).nombre;
+		return ejercicios.find(ejerc => ejerc.numero == args[1]).nombre;
 	}
 }

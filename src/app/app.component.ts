@@ -4,8 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
-import { ConfiguracionPage } from '../pages/configuracion/configuracion';
-
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +17,6 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     this.pages = [
-      { title: 'Configurar rutina', component: ConfiguracionPage, icon: 'settings' },
       { title: 'Acerca de', component: null, icon: 'alert' },
       { title: 'Cerrar Sesión', component: null, icon: 'close' }
     ];

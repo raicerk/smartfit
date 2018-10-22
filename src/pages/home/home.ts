@@ -12,11 +12,10 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
-  
+
   private db: any;
   messages: any;
   model: any = {};
-  isEditing: boolean = false;
   ordenEjercicio: number;
   maquina: number;
   tipo: string;
@@ -40,7 +39,7 @@ export class HomePage {
     this.db.settings({ timestampsInSnapshots: false });
     this.storage.get('rut').then((val) => {
       this.cargaRutina(val).then(response => {
-        this.rutina = response;
+        this.rutina = response[0].rutina;
       })
       this.rut = val;
       this.model.rut = this.rut;
@@ -49,14 +48,19 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    this.storage.get('rut').then((val) => {
+      this.cargaRutina(val).then(response => {
+        this.rutina = response[0].rutina;
+      })
+      this.rut = val;
+      this.model.rut = this.rut;
+    });
   }
 
   cargaRutina(rut: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.db.collection("rutina")
+      this.db.collection("RutinaCompleta")
         .where("rut", "==", rut)
-        .orderBy("orden", "asc")
-        .limit(1000)
         .get()
         .then((querySnapshot) => {
           let arr = [];
@@ -80,22 +84,20 @@ export class HomePage {
   }
 
   addMessage() {
-    if (!this.isEditing) {
-      this.addDocument("messages", this.model).then(() => {
-        const alert = this.alertCtrl.create({
-          title: 'Información',
-          message: 'El entrenamiento a sido almacenado correctamente!',
-          buttons: ['OK']
-        });
-        alert.present();
 
-        this.btnIniciar = true;
-        this.btnPausar = true;
-        this.btnReiniciar = true;
-        this.btnGuardar = true;
+    this.addDocument("messages", this.model).then(() => {
+      const alert = this.alertCtrl.create({
+        title: 'Información',
+        message: 'El entrenamiento a sido almacenado correctamente!',
+        buttons: ['OK']
       });
-    }
-    this.isEditing = false;
+      alert.present();
+
+      this.btnIniciar = true;
+      this.btnPausar = true;
+      this.btnReiniciar = true;
+      this.btnGuardar = true;
+    });
   }
 
   addDocument(collectionName: string, dataObj: any): Promise<any> {
@@ -112,7 +114,6 @@ export class HomePage {
 
   onChange(numeroEjercicio) {
     this.model = this.rutina.find(ejer => ejer.orden == numeroEjercicio);
-    console.log(this.model);
     this.model.n = 0;
     this.btnIniciar = false;
     this.btnPausar = true;
@@ -121,17 +122,16 @@ export class HomePage {
   }
 
   iniciar() {
-    this.model.fechahora = new Date();
-    this.stopCondition = false;
-    Observable.interval(1000)
-      .takeWhile(() => !this.stopCondition)
-      .subscribe(i => {
-        this.model.n = parseInt(this.model.n) + 1;
-      })
+
     this.btnIniciar = true;
     this.btnPausar = false;
     this.btnReiniciar = false;
 
+    this.model.fechahora = new Date();
+    this.stopCondition = false;
+    Observable.interval(1000).takeWhile(() => !this.stopCondition).subscribe(i => {
+      this.model.n = parseInt(this.model.n) + 1;
+    })
   }
 
   pausar() {

@@ -26,20 +26,20 @@ export class HistorialPage {
   }
 
   ionViewWillEnter() {
-    this.loadData();
+    this.storage.get('rut').then((val) => {
+      this.rut = val;
+      if (this.rut != "") {
+        this.loadData();
+      }
+    });
+    
   }
 
   loadData() {
     this.getAllDocuments("messages", this.rut).then((e) => {
-      console.log("--------------------------------")
-      console.log(e);
-      console.log("--------------------------------")
       if (e != null) {
         this.messages = e;
       }
-      console.log("********************************")
-      console.log(this.messages);
-      console.log("********************************")
     });
   }
 

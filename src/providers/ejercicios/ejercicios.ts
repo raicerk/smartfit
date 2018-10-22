@@ -11,7 +11,6 @@ export class EjerciciosProvider {
 
 	TipoEjercicio: any = [
 		{
-			id: 0,
 			tipo: "Piernas",
 			ejercicio: [
 				{
@@ -49,7 +48,6 @@ export class EjerciciosProvider {
 			]
 		},
 		{
-			id: 1,
 			tipo: "Brazos",
 			ejercicio: [
 				{
@@ -71,7 +69,6 @@ export class EjerciciosProvider {
 			]
 		},
 		{
-			id: 2,
 			tipo: "Tronco",
 			ejercicio: [
 				{
@@ -101,7 +98,6 @@ export class EjerciciosProvider {
 			]
 		},
 		{
-			id: 3,
 			tipo: "Abdominal/Lumbar",
 			ejercicio: [
 				{
@@ -121,7 +117,6 @@ export class EjerciciosProvider {
 	]
 
   constructor() {
-    console.log('Hello EjerciciosProvider Provider');
   }
 
   get(){
