@@ -152,3 +152,42 @@
 .bar-button-default-md:hover:not(.disable-hover), .bar-button-clear-md-default:hover:not(.disable-hover), .bar-button-md-default:hover:not(.disable-hover) {
     color: #fbb813;
 }
+
+.alert-md .alert-radio-group, .alert-md .alert-checkbox-group {
+    background-color: #221d1e;
+    color: #fff !important;
+}
+
+.alert-md [aria-checked=true] .alert-radio-label {
+    color: #fbb813;
+}
+
+.alert-md .alert-radio-label {
+    color: #fff;
+}
+
+.alert-md [aria-checked=true] .alert-radio-icon {
+    border-color: #fbb813;
+}
+
+.alert-md .alert-radio-inner {
+    background-color: #fbb813;
+}
+
+.alert-md .alert-head {
+    background-color: #000;
+    color: #fff;
+}
+
+.alert-md .alert-button-group {
+    background-color: #000;
+}
+
+.alert-md .alert-button {
+    color: #fff;
+}
+
+.alert-md .alert-radio-group, .alert-md .alert-checkbox-group {
+    border-top: none;
+    border-bottom: none;
+}

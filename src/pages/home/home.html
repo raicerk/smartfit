@@ -21,7 +21,7 @@
     <ion-item>
       <ion-label>Número de ejercicio:</ion-label>
       <ion-select [(ngModel)]="model.numero" (ngModelChange)="onChange($event)">
-        <ion-option *ngFor="let ejercicio of rutina" value="{{ejercicio.orden}}">Número {{ejercicio.orden}} : {{ejercicio.tipo}}</ion-option>
+        <ion-option *ngFor="let ejercicio of rutina; let i = index" value="{{ejercicio.orden}}">{{ i+1 }} : {{ejercicio.tipo}}</ion-option>
       </ion-select>
     </ion-item>
 

@@ -7,6 +7,7 @@ import { LoginPage } from '../pages/login/login';
 import { HistorialPage } from '../pages/historial/historial';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
+import { InformePage } from '../pages/informe/informe';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -39,6 +40,7 @@ firebase.initializeApp(config);
     HistorialPage,
     ContactPage,
     HomePage,
+    InformePage,
     TabsPage,
     NombreEjercicioPipe
   ],
@@ -54,6 +56,7 @@ firebase.initializeApp(config);
     HistorialPage,
     ContactPage,
     HomePage,
+    InformePage,
     TabsPage
   ],
   providers: [
