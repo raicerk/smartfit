@@ -84,7 +84,7 @@ export class HomePage {
 
   addMessage() {
 
-    console.log(this.model);
+    this.model.rut = this.rut;
 
     this.addDocument("messages", this.model).then(() => {
       const alert = this.alertCtrl.create({

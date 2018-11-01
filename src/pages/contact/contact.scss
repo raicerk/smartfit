@@ -7,7 +7,20 @@ page-contact {
 	    box-shadow: none;
 	}
 
+	.item-ios .item-button[icon-only] ion-icon, .item-ios .item-button[icon-only] {
+	    background-color: transparent;
+	    padding: 0 1px;
+	    color: #fff;
+	    box-shadow: none;
+	}
+
 	.item-md ion-reorder {
+	    font-size: 1.5em;
+	    color: #fff !important;
+	    opacity: 1;
+	}
+
+	.item-ios ion-reorder {
 	    font-size: 1.5em;
 	    color: #fff !important;
 	    opacity: 1;
