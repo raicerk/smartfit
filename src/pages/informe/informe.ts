@@ -35,19 +35,27 @@ export class InformePage {
 		});
 	}
 
+	async fmtMSS(s) {
+		return (s - (s %= 60)) / 60 + (9 < s ? '.' : '.0') + s
+	}
+
 	async ionViewWillEnter() {
 
 		this.rut = await this.storage.get('rut')
 
 		if (this.rut != "") {
 			this.messages = await this.loadData();
-			this.datos = this.agrupar(this.messages);
+			this.datos = await this.agrupar(this.messages);
 			//-------------------------------------------------------------
 			var labels = [];
 			var data = [];
 			this.datos.forEach(function(element) {
 				labels.push(element.fecha);
-				data.push(element.sumatiempo/60);
+
+				let s = element.sumatiempo
+				let time = (s - (s %= 60)) / 60 + (9 < s ? '.' : '.0') + s;
+				console.log(`${element.sumatiempo} | ${time}`)
+				data.push(time);
 			})
 
 			this.barChart = new Chart(this.barCanvas.nativeElement, {
@@ -64,14 +72,14 @@ export class InformePage {
 					}]
 				},
 				options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					}
+				}
 
 			});
 			//-------------------------------------------------------------

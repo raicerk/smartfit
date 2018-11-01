@@ -22,6 +22,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { EjerciciosProvider } from '../providers/ejercicios/ejercicios';
 
 import { NombreEjercicioPipe } from '../pipes/nombre-ejercicio/nombre-ejercicio';
+import { SecondtominutesPipe } from '../pipes/secondtominutes/secondtominutes'
 
 const config = {
   apiKey: "AIzaSyDfufyZSQXEDy6XKcLwDyAtuHs5WvBgT4I",
@@ -42,7 +43,8 @@ firebase.initializeApp(config);
     HomePage,
     InformePage,
     TabsPage,
-    NombreEjercicioPipe
+    NombreEjercicioPipe,
+    SecondtominutesPipe
   ],
   imports: [
     BrowserModule,

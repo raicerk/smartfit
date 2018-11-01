@@ -53,7 +53,6 @@ export class HomePage {
         this.rutina = response[0].rutina;
       })
       this.rut = val;
-      this.model.rut = this.rut;
     });
   }
 
@@ -84,6 +83,8 @@ export class HomePage {
   }
 
   addMessage() {
+
+    console.log(this.model);
 
     this.addDocument("messages", this.model).then(() => {
       const alert = this.alertCtrl.create({

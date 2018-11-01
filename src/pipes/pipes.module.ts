@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { NombreEjercicioPipe } from './nombre-ejercicio/nombre-ejercicio';
+import { SecondtominutesPipe } from './secondtominutes/secondtominutes';
 @NgModule({
-	declarations: [NombreEjercicioPipe],
+	declarations: [NombreEjercicioPipe,
+    SecondtominutesPipe],
 	imports: [],
-	exports: [NombreEjercicioPipe]
+	exports: [NombreEjercicioPipe,
+    SecondtominutesPipe]
 })
 export class PipesModule {}

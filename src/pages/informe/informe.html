@@ -25,4 +25,24 @@
         <canvas #barCanvas></canvas>
         
 	</ion-list>
+	<ion-list>
+		<ion-grid>
+			<ion-row>
+				<ion-col col-6>
+					Fecha
+				</ion-col>
+				<ion-col col-6>
+					Tiempo
+				</ion-col>
+			</ion-row>
+		  	<ion-row *ngFor="let dat of datos">
+		    	<ion-col col-6>
+		      		{{ dat.fecha }}
+		    	</ion-col>
+		    	<ion-col col-6>
+		      		{{ dat.sumatiempo | secondtominutes }}
+		    	</ion-col>
+		  </ion-row>
+		</ion-grid>
+	</ion-list>
 </ion-content>
