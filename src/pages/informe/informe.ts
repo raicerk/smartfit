@@ -37,6 +37,10 @@ export class InformePage {
 
 	async ionViewWillEnter() {
 
+		if (this.barChart != undefined) {
+			this.barChart.destroy();
+		}
+
 		this.rut = await this.storage.get('rut')
 
 		if (this.rut != "") {
@@ -47,10 +51,8 @@ export class InformePage {
 			var data = [];
 			this.datos.forEach(function(element) {
 				labels.push(element.fecha);
-
 				let s = element.sumatiempo
 				let time = (s - (s %= 60)) / 60 + (9 < s ? '.' : '.0') + s;
-				console.log(`${element.sumatiempo} | ${time}`)
 				data.push(time);
 			})
 
