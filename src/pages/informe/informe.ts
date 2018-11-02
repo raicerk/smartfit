@@ -35,10 +35,6 @@ export class InformePage {
 		});
 	}
 
-	async fmtMSS(s) {
-		return (s - (s %= 60)) / 60 + (9 < s ? '.' : '.0') + s
-	}
-
 	async ionViewWillEnter() {
 
 		this.rut = await this.storage.get('rut')
@@ -46,7 +42,7 @@ export class InformePage {
 		if (this.rut != "") {
 			this.messages = await this.loadData();
 			this.datos = await this.agrupar(this.messages);
-			//-------------------------------------------------------------
+
 			var labels = [];
 			var data = [];
 			this.datos.forEach(function(element) {
@@ -72,6 +68,8 @@ export class InformePage {
 					}]
 				},
 				options: {
+					responsive: true,
+					maintainAspectRatio: false,
 					scales: {
 						yAxes: [{
 							ticks: {
@@ -82,33 +80,19 @@ export class InformePage {
 				}
 
 			});
-			//-------------------------------------------------------------
-
-			//#fbb813
 		}
-
-
-
-
-
-
-
-
-
-
 	}
 
 	agrupar(datos) {
+
 		var arreglo = [];
 		var array = new Object();
 
 		datos.forEach(function(element) {
 
-
 			if (array["sumatiempo"] == undefined) {
 				array["sumatiempo"] = 0;
 			}
-
 
 			if (array["fecha"] == element.fechahora.substr(0, 10).toString()) {
 				array["sumatiempo"] = parseInt(array["sumatiempo"]) + parseInt(element.n);
@@ -116,12 +100,13 @@ export class InformePage {
 				arreglo.push(array)
 				array = {}
 				array["fecha"] = element.fechahora.substr(0, 10);
+				array["sumatiempo"] = parseInt(element.n);
 			}
-
 		})
-		arreglo.shift();
-		return arreglo;
 
+		arreglo.shift();
+
+		return arreglo;
 	}
 
 	loadData() {
@@ -132,32 +117,31 @@ export class InformePage {
 				}
 			});
 		})
-
 	}
 
 	getAllDocuments(collection: string, rut: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			this.db.collection(collection)
-				.where("rut", "==", rut)
-				.orderBy("fechahora", "desc")
-				.get()
-				.then((querySnapshot) => {
-					let arr = [];
-					querySnapshot.forEach(function(doc) {
-						var obj = JSON.parse(JSON.stringify(doc.data()));
-						obj.$key = doc.id
-						arr.push(obj);
-					});
-
-					if (arr.length > 0) {
-						resolve(arr);
-					} else {
-						resolve(null);
-					}
-				})
-				.catch((error: any) => {
-					reject(error);
+			.where("rut", "==", rut)
+			.orderBy("fechahora", "desc")
+			.get()
+			.then((querySnapshot) => {
+				let arr = [];
+				querySnapshot.forEach(function(doc) {
+					var obj = JSON.parse(JSON.stringify(doc.data()));
+					obj.$key = doc.id
+					arr.push(obj);
 				});
+
+				if (arr.length > 0) {
+					resolve(arr);
+				} else {
+					resolve(null);
+				}
+			})
+			.catch((error: any) => {
+				reject(error);
+			});
 		});
 	}
 
