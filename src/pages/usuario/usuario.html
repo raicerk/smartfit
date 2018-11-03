@@ -1,0 +1,44 @@
+<!--
+  Generated template for the UsuarioPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Información de usuario</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card>
+
+	    <ion-item>
+	      <ion-icon name='contact' item-start style="color: #fbb813"></ion-icon>
+	      Nombre
+	      <ion-badge item-end>{{ nombre }}</ion-badge>
+	    </ion-item>
+
+	    <ion-item>
+	      <ion-icon name='checkbox' item-start style="color: #fbb813"></ion-icon>
+	      Plan
+	      <ion-badge item-end>{{ plan }}</ion-badge>
+	    </ion-item>
+
+	    <ion-item>
+	      <ion-icon name='pin' item-start style="color: #fbb813"></ion-icon>
+	      Sucursal
+	      <ion-badge item-end>{{ sucursal }}</ion-badge>
+	    </ion-item>
+
+	    <ion-item>
+	      <ion-icon name='cash' item-start style="color: #fbb813"></ion-icon>
+	      Pagos
+	      <ion-badge item-end>{{ pagos }}</ion-badge>
+	    </ion-item>
+
+  	</ion-card>
+</ion-content>

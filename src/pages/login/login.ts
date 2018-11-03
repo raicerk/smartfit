@@ -34,7 +34,7 @@ export class LoginPage {
     this.btnLoginText = "VALIDANDO..."
 
     const goNFetch = GoNFetch({
-      baseUrl: 'https://apismartfit.appspot.com/',
+      baseUrl: 'http://localhost:8080',
       headers: {
         "Content-Type": "application/json"
       }
@@ -43,7 +43,12 @@ export class LoginPage {
     var response = await goNFetch.post(`/Login`, { body: JSON.stringify({ "rut": this.rut, "contrasena": this.contrasena }) });
     var data = await response.json();
     if (data.exito) {
+      console.log(data)
       this.storage.set('rut', this.rut);
+      this.storage.set('nombre', data.nombre);
+      this.storage.set('plan', data.plan);
+      this.storage.set('sucursal', data.sucursal);
+      this.storage.set('pagos', data.pagos);
       this.navCtrl.setRoot(TabsPage);
     } else {
       const alert = this.alertCtrl.create({
