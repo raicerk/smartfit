@@ -34,7 +34,7 @@ export class LoginPage {
     this.btnLoginText = "VALIDANDO..."
 
     const goNFetch = GoNFetch({
-      baseUrl: 'http://localhost:8080',
+      baseUrl: 'https://apismartfit.appspot.com/',
       headers: {
         "Content-Type": "application/json"
       }
